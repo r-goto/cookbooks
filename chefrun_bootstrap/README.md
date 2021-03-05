@@ -1,19 +1,18 @@
-# chefrun_bootstrap Cookbooks		 # Cookbooks
+# chefrun_bootstrap Cookbooks
 
-  All shared cookbooks
  Having issues with `knife bootstrap`? Why don't you start using `chef-run` to bootstrap your nodes.  		
  This cookbook provides easy and simple way of registering your nodes to Chef Server.
 
 ##### What it does is simply. Setup Chef Infra Client onto the target nodes and which be added to specified org and policy name/group. 
 ##### chef-client.service timer will be set with a specified internal. (default 5m with 3m splay)
 
-  # Usage		
+# Usage		
 
   ```chef-run [NODE_IP] chefrun_bootstrap``` 	
 
   * Prerequisites: ssh connection to the node. Available options: `--password PASSWORD` `-identity-file PATH/TO/FILE`
 		
- # Attributes		
+# Attributes		
 		
  ```		
  # Specify Chef Server FQDN & IP		
