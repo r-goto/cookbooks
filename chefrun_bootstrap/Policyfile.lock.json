@@ -1,0 +1,51 @@
+{
+  "revision_id": "af286c970f84a519a1469ffc838144e37bf18c06a162bb683264cdec5481e3ff",
+  "name": "chefrun_bootstrap",
+  "run_list": [
+    "recipe[chefrun_bootstrap::default]"
+  ],
+  "included_policy_locks": [
+
+  ],
+  "cookbook_locks": {
+    "chefrun_bootstrap": {
+      "version": "0.1.0",
+      "identifier": "b3dcb6a11680dfaf822011f1c90796ab1e0bffaf",
+      "dotted_decimal_identifier": "50626697775972575.49401195175987463.165661687676847",
+      "source": ".",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": null,
+        "revision": "4fce37049e5dfc44a3b9a6e64e6410ca2069ebf4",
+        "working_tree_clean": false,
+        "published": false,
+        "synchronized_remote_branches": [
+
+        ]
+      },
+      "source_options": {
+        "path": "."
+      }
+    }
+  },
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+
+  },
+  "solution_dependencies": {
+    "Policyfile": [
+      [
+        "chefrun_bootstrap",
+        ">= 0.0.0"
+      ]
+    ],
+    "dependencies": {
+      "chefrun_bootstrap (0.1.0)": [
+
+      ]
+    }
+  }
+}
