@@ -52,11 +52,18 @@ chef_client_systemd_timer 'Run Chef Infra Client every x minutes' do
   splay "#{node['chefrun_bootstrap']['chef_client_systemd_timer']['splay']}"
 end
 
-timezone 'Set TZ to Asia/Tokyo' do
-  timezone 'Asia/Tokyo'
-end
+###########
+# Run first chef-client
+###########
 
-package 'chrony'
-service 'Start/Enable Chrony' do
-  action :start, :enable
+execute 'chef-client'
+
+###########
+# Delete org validator key after it's done.
+###########
+
+file 'Delete org validator key' do
+  path "/etc/chef/#{node['chefrun_bootstrap']['org_name']}-validator.pem"
+  only_if 'chef-client'
+  action :delete
 end

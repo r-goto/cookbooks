@@ -14,11 +14,7 @@ describe file('/etc/chef/client.rb') do
 end
 
 describe file('/etc/chef/first-org-validator.pem') do
-  it { should exist }
-  its('mode') { should cmp '0755' }
-  its('owner') { should eq 'root' }
-  its('content') { should match /-----BEGIN RSA PRIVATE KEY-----/ }
-  its('content') { should match /-----END RSA PRIVATE KEY-----/ }
+  it { should_not exist }
 end
 
 describe file('/etc/hosts') do
@@ -36,4 +32,8 @@ end
 describe systemd_service('chef-client.timer') do
   it { should be_running }
   it { should be_enabled }
+end
+
+describe file('/etc/chef/client.pem') do
+  it { should exist }
 end
