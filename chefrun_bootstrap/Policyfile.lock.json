@@ -1,5 +1,5 @@
 {
-  "revision_id": "e3e417a716a23e18a1d62524fde1a71949f2c1c75bf497b87c7f955bb59bfa9e",
+  "revision_id": "d8e547b8d23972b0b3551a7a7054876d0cc5c0965e022982fc7fe1daaf8a0a7e",
   "name": "chefrun_bootstrap",
   "run_list": [
     "recipe[chefrun_bootstrap::default]"
@@ -10,20 +10,18 @@
   "cookbook_locks": {
     "chefrun_bootstrap": {
       "version": "0.1.0",
-      "identifier": "c0bf31918b9bf423e77525e75d58da0732e3a00d",
-      "dotted_decimal_identifier": "54253415144594420.10106114517982552.239724453404685",
+      "identifier": "d5fcceb71ccc1a53088df0a0d74979d7b420dadf",
+      "dotted_decimal_identifier": "60232134804950042.23371828787468105.133967346981599",
       "source": ".",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
         "remote": "git@github.com:r-goto/cookbooks.git",
-        "revision": "4e99c0a72cb71eb4d6bab909bf30f80d9bab75bd",
+        "revision": "234b92999cc18a7b1a916f827fbbd6a7ecd69bcb",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/HEAD -> origin/main",
-          "origin/delete_validation_key_post_bootstrap",
-          "origin/main"
+          "origin/delete_validation_key_post_bootstrap"
         ]
       },
       "source_options": {

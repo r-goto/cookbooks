@@ -51,3 +51,19 @@ chef_client_systemd_timer 'Run Chef Infra Client every x minutes' do
   interval "#{node['chefrun_bootstrap']['chef_client_systemd_timer']['interval']}"
   splay "#{node['chefrun_bootstrap']['chef_client_systemd_timer']['splay']}"
 end
+
+###########
+# Run first chef-client
+###########
+
+execute 'chef-client'
+
+###########
+# Delete org validator key after it's done.
+###########
+
+file 'Delete org validator key' do
+  path "/etc/chef/#{node['chefrun_bootstrap']['org_name']}-validator.pem"
+  only_if 'chef-client'
+  action :delete
+end

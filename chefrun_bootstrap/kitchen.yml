@@ -8,7 +8,7 @@ transport:
 provisioner:
   name: dokken
   product_name: chef
-  product_version: latest #12.7.2
+  product_version: latest
 
 verifier:
   name: inspec
