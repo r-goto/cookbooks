@@ -51,12 +51,3 @@ chef_client_systemd_timer 'Run Chef Infra Client every x minutes' do
   interval "#{node['chefrun_bootstrap']['chef_client_systemd_timer']['interval']}"
   splay "#{node['chefrun_bootstrap']['chef_client_systemd_timer']['splay']}"
 end
-
-timezone 'Set TZ to Asia/Tokyo' do
-  timezone 'Asia/Tokyo'
-end
-
-package 'chrony'
-service 'Start/Enable Chrony' do
-  action :start, :enable
-end
