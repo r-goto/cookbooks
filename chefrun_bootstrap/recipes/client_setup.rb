@@ -17,21 +17,6 @@ chef_client_config 'client.rb' do
   additional_config "validation_key \"/etc/chef/#{node['chefrun_bootstrap']['org_name']}-validator.pem\"\ntrusted_certs_dir \"/etc/chef/trusted_certs\""
 end
 
-cookbook_file "Place validator key for Org:#{node['chefrun_bootstrap']['org_name']}" do
-  source "#{node['chefrun_bootstrap']['org_name']}-validator-key" # Watch out for the file name
-  mode '0755'
-  owner 'root'
-  path "/etc/chef/#{node['chefrun_bootstrap']['org_name']}-validator.pem" # Watch out for the file name
-end
-
-ruby_block 'edit etc hosts' do
-  block do
-    rc = Chef::Util::FileEdit.new('/etc/hosts')
-    rc.insert_line_if_no_match(/#{node['chefrun_bootstrap']['chef_server']['fqdn']}/, "#{node['chefrun_bootstrap']['chef_server']['ipaddress']} #{node['chefrun_bootstrap']['chef_server']['fqdn']}")
-    rc.write_file
-  end
-end
-
 directory '/etc/chef/trusted_certs' do
   mode '755'
 end
@@ -44,26 +29,36 @@ cookbook_file 'Place SSL certificate to /etc/chef/trusted_certs' do
 end
 
 ###########
+# Create client.pem and delete org-validator after first CCR
+###########
+
+ruby_block 'edit etc hosts' do
+  block do
+    rc = Chef::Util::FileEdit.new('/etc/hosts')
+    rc.insert_line_if_no_match(/#{node['chefrun_bootstrap']['chef_server']['fqdn']}/, "#{node['chefrun_bootstrap']['chef_server']['ipaddress']} #{node['chefrun_bootstrap']['chef_server']['fqdn']}")
+    rc.write_file
+  end
+end
+
+cookbook_file "Place validator key for Org:#{node['chefrun_bootstrap']['org_name']}" do
+  not_if { ::File.exist?('/etc/chef/client.pem') }
+  source "#{node['chefrun_bootstrap']['org_name']}-validator-key" # Watch out for the file name
+  mode '0755'
+  owner 'root'
+  path "/etc/chef/#{node['chefrun_bootstrap']['org_name']}-validator.pem" # Watch out for the file name
+end
+
+file 'Delete org validator key' do
+  only_if { ::File.exist?('/etc/chef/client.pem') }
+  path "/etc/chef/#{node['chefrun_bootstrap']['org_name']}-validator.pem"
+  action :delete
+end
+
+###########
 # Setup systemd timer to run chef-client periodically.
 ###########
 
 chef_client_systemd_timer 'Run Chef Infra Client every x minutes' do
   interval "#{node['chefrun_bootstrap']['chef_client_systemd_timer']['interval']}"
   splay "#{node['chefrun_bootstrap']['chef_client_systemd_timer']['splay']}"
-end
-
-###########
-# Run first chef-client
-###########
-
-execute 'chef-client'
-
-###########
-# Delete org validator key after it's done.
-###########
-
-file 'Delete org validator key' do
-  path "/etc/chef/#{node['chefrun_bootstrap']['org_name']}-validator.pem"
-  only_if 'chef-client'
-  action :delete
 end
