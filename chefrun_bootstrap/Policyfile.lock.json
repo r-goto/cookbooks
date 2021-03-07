@@ -1,7 +1,8 @@
 {
-  "revision_id": "d8e547b8d23972b0b3551a7a7054876d0cc5c0965e022982fc7fe1daaf8a0a7e",
-  "name": "chefrun_bootstrap",
+  "revision_id": "a8ad1cecd9e5462ea53b63cf28025364698ee76a46b9f85e9b12c110813efb43",
+  "name": "example-application-service",
   "run_list": [
+    "recipe[slack_handler::default]",
     "recipe[chefrun_bootstrap::default]"
   ],
   "included_policy_locks": [
@@ -9,23 +10,34 @@
   ],
   "cookbook_locks": {
     "chefrun_bootstrap": {
-      "version": "0.1.0",
-      "identifier": "d5fcceb71ccc1a53088df0a0d74979d7b420dadf",
-      "dotted_decimal_identifier": "60232134804950042.23371828787468105.133967346981599",
+      "version": "1.0.0",
+      "identifier": "bc147847daa550237b6bb71f4d4dc315d25373fd",
+      "dotted_decimal_identifier": "52939802455745872.9987326748872013.214498490414077",
       "source": ".",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
         "remote": "git@github.com:r-goto/cookbooks.git",
-        "revision": "234b92999cc18a7b1a916f827fbbd6a7ecd69bcb",
+        "revision": "7a859c15c30ba1d1b7e7047a3b1a2549a5800039",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
-          "origin/delete_validation_key_post_bootstrap"
+          "origin/chefrun_bootstrap_add-exception-handler"
         ]
       },
       "source_options": {
         "path": "."
+      }
+    },
+    "slack_handler": {
+      "version": "1.0.0",
+      "identifier": "1d7376cf1221a8976fa8b3ae513aacd0d5f5397a",
+      "dotted_decimal_identifier": "8289728442016168.42625491843043642.190012942793082",
+      "cache_key": "slack_handler-1.0.0-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/slack_handler/versions/1.0.0/download",
+      "source_options": {
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/slack_handler/versions/1.0.0/download",
+        "version": "1.0.0"
       }
     }
   },
@@ -40,10 +52,20 @@
       [
         "chefrun_bootstrap",
         ">= 0.0.0"
+      ],
+      [
+        "slack_handler",
+        "= 1.0.0"
       ]
     ],
     "dependencies": {
-      "chefrun_bootstrap (0.1.0)": [
+      "chefrun_bootstrap (1.0.0)": [
+        [
+          "slack_handler",
+          ">= 0.0.0"
+        ]
+      ],
+      "slack_handler (1.0.0)": [
 
       ]
     }

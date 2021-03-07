@@ -13,6 +13,13 @@ provisioner:
 verifier:
   name: inspec
 
+suites:
+  - name: default
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
+
 platforms:
   - name: centos-8
     driver:
@@ -20,26 +27,19 @@ platforms:
       tag: latest
       privileged: true
       pid_one_command: /usr/lib/systemd/systemd
-  - name: centos-7
-    driver:
-      image: dokken/centos-7
-      tag: latest
-      privileged: true
-      pid_one_command: /sbin/init
-  - name: ubuntu-20.04
-    driver:
-      image: dokken/ubuntu-20.04
-      tag: latest
-      privileged: true
-      pid_one_command: /bin/systemd
-      
-suites:
-  - name: default
-    verifier:
-      inspec_tests:
-        - test/integration/default
-    attributes:
-      
+#   - name: centos-7
+#     driver:
+#       image: dokken/centos-7
+#       tag: latest
+#       privileged: true
+#       pid_one_command: /sbin/init
+#   - name: ubuntu-20.04
+#     driver:
+#       image: dokken/ubuntu-20.04
+#       tag: latest
+#       privileged: true
+#       pid_one_command: /bin/systemd
+
 # lifecycle:
 #   pre_converge:
 #     - remote: | 
@@ -76,6 +76,8 @@ suites:
 
 # suites:
 #   - name: default
+#     run_list:
+#       - recipe[chefrun_bootstrap::default]
 #     verifier:
 #       inspec_tests:
 #         - test/integration/default
