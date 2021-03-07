@@ -5,6 +5,7 @@ license 'All Rights Reserved'
 description 'Installs/Configures chefrun_bootstrap'
 version '1.0.0'
 chef_version '>= 16.0'
+depends 'slack_handler'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
