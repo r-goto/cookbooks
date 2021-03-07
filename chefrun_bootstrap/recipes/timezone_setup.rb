@@ -6,9 +6,13 @@
 
 case node[:platform] 
 when 'ubuntu' || 'debian'
-  apt_update
+  apt_update do
+    not_if { ::File.exist?('/etc/chrony.conf') }
+  end
 when 'centos' || 'redhat'
-  execute 'yum -y update'
+  execute 'yum -y update' do
+    not_if { ::File.exist?('/etc/chrony.conf') }
+  end
 end
 
 timezone "Set TZ to #{node['chefrun_bootstrap']['timezone']}" do
