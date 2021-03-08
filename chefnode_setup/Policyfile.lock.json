@@ -1,0 +1,75 @@
+{
+  "revision_id": "40b4b632c117d61abfea7f1e438be17d81d038a6a0d96853a8b4eecf28ffbc4d",
+  "name": "chefnode_setup",
+  "run_list": [
+    "recipe[slack_handler::default]",
+    "recipe[chefnode_setup::default]"
+  ],
+  "included_policy_locks": [
+
+  ],
+  "cookbook_locks": {
+    "chefnode_setup": {
+      "version": "1.0.0",
+      "identifier": "c34401932da80424e8110f24c9633c9826f4332f",
+      "dotted_decimal_identifier": "54962394013476868.10388259127740771.66624186233647",
+      "source": ".",
+      "cache_key": null,
+      "scm_info": {
+        "scm": "git",
+        "remote": "git@github.com:r-goto/cookbooks.git",
+        "revision": "33f4b5a6cb1d8d2a5d3411ef904e108046d01456",
+        "working_tree_clean": false,
+        "published": true,
+        "synchronized_remote_branches": [
+          "origin/HEAD -> origin/main",
+          "origin/change-name-to-chefnode_setup",
+          "origin/main"
+        ]
+      },
+      "source_options": {
+        "path": "."
+      }
+    },
+    "slack_handler": {
+      "version": "1.0.0",
+      "identifier": "1d7376cf1221a8976fa8b3ae513aacd0d5f5397a",
+      "dotted_decimal_identifier": "8289728442016168.42625491843043642.190012942793082",
+      "cache_key": "slack_handler-1.0.0-supermarket.chef.io",
+      "origin": "https://supermarket.chef.io:443/api/v1/cookbooks/slack_handler/versions/1.0.0/download",
+      "source_options": {
+        "artifactserver": "https://supermarket.chef.io:443/api/v1/cookbooks/slack_handler/versions/1.0.0/download",
+        "version": "1.0.0"
+      }
+    }
+  },
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+
+  },
+  "solution_dependencies": {
+    "Policyfile": [
+      [
+        "chefnode_setup",
+        "= 1.0.0"
+      ],
+      [
+        "slack_handler",
+        "= 1.0.0"
+      ]
+    ],
+    "dependencies": {
+      "chefnode_setup (1.0.0)": [
+        [
+          "slack_handler",
+          ">= 0.0.0"
+        ]
+      ],
+      "slack_handler (1.0.0)": [
+
+      ]
+    }
+  }
+}
