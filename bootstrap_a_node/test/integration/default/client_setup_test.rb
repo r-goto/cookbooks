@@ -1,4 +1,4 @@
-# InSpec test for recipe chefnode_setup::client_setup.rb
+# InSpec test for recipe bootstrap_a_node::client_setup.rb
 
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
@@ -27,11 +27,6 @@ describe file('/etc/chef/trusted_certs/automate.cl.crt') do
   its('owner') { should eq 'root' }
   its('content') { should match /-----BEGIN CERTIFICATE-----/ }
   its('content') { should match /-----END CERTIFICATE-----/ }
-end
-
-describe systemd_service('chef-client.timer') do
-  it { should be_running }
-  it { should be_enabled }
 end
 
 describe file('/etc/chef/client.pem') do

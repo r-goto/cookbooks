@@ -1,5 +1,5 @@
 #
-# Cookbook:: chefnode_setup
+# Cookbook:: bootstrap_a_node
 # Recipe:: timezone_setup.rb
 #
 # Copyright:: 2021, The Authors, All Rights Reserved.
@@ -15,8 +15,8 @@ when 'centos' || 'redhat'
   end
 end
 
-timezone "Set TZ to #{node['chefnode_setup']['timezone']}" do
-  timezone "#{node['chefnode_setup']['timezone']}"
+timezone "Set TZ to #{node['bootstrap_a_node']['timezone']}" do
+  timezone "#{node['bootstrap_a_node']['timezone']}"
 end
 
 package 'chrony'
