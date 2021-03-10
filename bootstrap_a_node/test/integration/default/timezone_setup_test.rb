@@ -1,4 +1,4 @@
-# InSpec test for recipe chefnode_setup::timezone_setup.rb
+# InSpec test for recipe bootstrap_a_node::timezone_setup.rb
 
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/

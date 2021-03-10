@@ -4,13 +4,15 @@
 # https://docs.chef.io/policyfile/
 
 # A name that describes what the system you're building with Chef does.
-name 'chefnode_setup'
+name 'bootstrap_a_node'
 
 # Where to find external cookbooks:
 default_source :supermarket
 
 # run_list: chef-client will run these recipes in the order specified.
-run_list 'slack_handler::default', 'chefnode_setup::default'
+run_list 'bootstrap_a_node::default'
 
 # Specify a custom source for a single cookbook:
-cookbook 'chefnode_setup', '1.0.0', path: '.'
+cookbook 'bootstrap_a_node', '1.0.3', path: '.'
+cookbook 'slack_handler', '~> 1.0.0', :supermarket
+cookbook 'chef_client_updater', '~> 3.11.1', :supermarket

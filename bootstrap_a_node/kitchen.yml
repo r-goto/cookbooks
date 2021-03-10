@@ -1,32 +1,32 @@
----
-driver:  
-  name: dokken
+# ---
+# driver:  
+#   name: dokken
 
-transport:
-  name: dokken
+# transport:
+#   name: dokken
 
-provisioner:
-  name: dokken
-  product_name: chef
-  product_version: latest
+# provisioner:
+#   name: dokken
+#   product_name: chef
+#   product_version: latest
 
-verifier:
-  name: inspec
+# verifier:
+#   name: inspec
 
-suites:
-  - name: default
-    verifier:
-      inspec_tests:
-        - test/integration/default
-    attributes:
+# suites:
+#   - name: default
+#     verifier:
+#       inspec_tests:
+#         - test/integration/default
+#     attributes:
 
-platforms:
-  - name: centos-8
-    driver:
-      image: dokken/centos-8
-      tag: latest
-      privileged: true
-      pid_one_command: /usr/lib/systemd/systemd
+# platforms:
+#   - name: centos-8
+#     driver:
+#       image: dokken/centos-8
+#       tag: latest
+#       privileged: true
+#       pid_one_command: /usr/lib/systemd/systemd
 #   - name: centos-7
 #     driver:
 #       image: dokken/centos-7
@@ -59,29 +59,29 @@ platforms:
 #         - centos-7
         
 ###################################
-# ---
-# driver:
-#   name: vagrant
+---
+driver:
+  name: vagrant
 
-# provisioner:
-#   name: chef_zero
+provisioner:
+  name: chef_zero
 
-# verifier:
-#   name: inspec
+verifier:
+  name: inspec
 
-# platforms:
-#   - name: ubuntu-20.04
+platforms:
+  - name: ubuntu-20.04
 #   - name: centos-8
 #   - name: centos-7
 
-# suites:
-#   - name: default
-#     run_list:
-#       - recipe[chefnode_setup::default]
-#     verifier:
-#       inspec_tests:
-#         - test/integration/default
-#     attributes:
+suites:
+  - name: default
+    run_list:
+      - recipe[bootstrap_a_node::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
 
 # lifecycle:
 #   pre_converge:
