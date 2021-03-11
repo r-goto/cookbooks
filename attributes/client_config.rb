@@ -6,8 +6,10 @@
 default['bootstrap_a_node']['chef_server']['ipaddress'] = '198.18.246.201'
 default['bootstrap_a_node']['chef_server']['fqdn'] = 'automate.cl'
 
-# Specify Org name
+# Specify Org name and its key file name
 default['bootstrap_a_node']['org_name'] = 'first-org'
+default['bootstrap_a_node']['org_validation_key_file'] = 'first-org-validator.pem'
+
 
 # Specify Policy name & Policy group
 default['bootstrap_a_node']['policy_name'] = 'web-server'

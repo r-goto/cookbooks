@@ -8,5 +8,5 @@ bin/*
 .kitchen/
 .kitchen.local.yml
 
-files/*.crt
-files/*key
+# files/*.crt
+# files/*key

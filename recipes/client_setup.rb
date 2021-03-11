@@ -14,7 +14,7 @@ chef_client_config 'client.rb' do
   log_location 'STDOUT'
   policy_name "#{node['bootstrap_a_node']['policy_name']}"
   policy_group "#{node['bootstrap_a_node']['policy_group']}"
-  additional_config "validation_key \"/etc/chef/#{node['bootstrap_a_node']['org_name']}-validator.pem\"\ntrusted_certs_dir \"/etc/chef/trusted_certs\""
+  additional_config "validation_key \"/etc/chef/#{node['bootstrap_a_node']['org_validation_key_file']}\"\ntrusted_certs_dir \"/etc/chef/trusted_certs\""
 end
 
 directory '/etc/chef/trusted_certs' do
@@ -42,15 +42,15 @@ end
 
 cookbook_file "Place validator key for Org:#{node['bootstrap_a_node']['org_name']}" do
   not_if { ::File.exist?('/etc/chef/client.pem') }
-  source "#{node['bootstrap_a_node']['org_name']}-validator-key" # Watch out for the file name
+  source "#{node['bootstrap_a_node']['org_validation_key_file']}" # Watch out for the file name
   mode '0755'
   owner 'root'
-  path "/etc/chef/#{node['bootstrap_a_node']['org_name']}-validator.pem" # Watch out for the file name
+  path "/etc/chef/#{node['bootstrap_a_node']['org_validation_key_file']}" # Watch out for the file name
 end
 
 file 'Delete org validator key' do
   only_if { ::File.exist?('/etc/chef/client.pem') }
-  path "/etc/chef/#{node['bootstrap_a_node']['org_name']}-validator.pem"
+  path "/etc/chef/#{node['bootstrap_a_node']['org_validation_key_file']}"
   action :delete
 end
 
