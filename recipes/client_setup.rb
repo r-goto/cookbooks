@@ -77,10 +77,10 @@ end
 # Notify if `chef-client` fails to generate '/etc/chefclient.pem'.
 ###########
 
-ruby_block 'Checking if initial CCR succesfully completed...' do
-  not_if { ::File.exist?('/etc/chef/client.pem') }
-  notifies :run, 'ruby_block[Run chef-client]', :before
-  block do
-    raise 'clinet.pem not found. Perhaps the initial CCR check-in failed or client.pem vanished. Check the node status.'
-  end
-end
+# ruby_block 'Checking if initial CCR succesfully completed...' do
+#   not_if { ::File.exist?('/etc/chef/client.pem') }
+#   notifies :run, 'ruby_block[Run chef-client]', :before
+#   block do
+#     raise 'clinet.pem not found. Perhaps the initial CCR check-in failed or client.pem vanished. Check the node status.'
+#   end
+# end
