@@ -13,6 +13,7 @@ default_source :supermarket
 run_list 'bootstrap_a_node::default'
 
 # Specify a custom source for a single cookbook:
-cookbook 'bootstrap_a_node', '2.0.1', path: '.'
+cookbook 'bootstrap_a_node', path: '.'
 cookbook 'slack_handler', '~> 1.0.0', :supermarket
 cookbook 'chef_client_updater', '~> 3.11.1', :supermarket
+cookbook 'chef-client', '~> 12.3.3', :supermarket
