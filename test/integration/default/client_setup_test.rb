@@ -29,6 +29,8 @@ describe file('/etc/chef/trusted_certs/automate.cl.crt') do
   its('content') { should match /-----END CERTIFICATE-----/ }
 end
 
-describe file('/etc/chef/client.pem') do
-  it { should exist }
+describe service('chef-client') do
+  it { should be_installed }
+  it { should be_enabled }
+  it { should be_running }
 end

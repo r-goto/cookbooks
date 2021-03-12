@@ -1,5 +1,5 @@
 {
-  "revision_id": "c51192b353034685870e8a73b2cfd3757f14e463185b8ce52e5ae2840b9d3ffd",
+  "revision_id": "0ea30d103248b1883dfb90ceedb7863df53e89a15025d77758a60fa43cde7512",
   "name": "bootstrap_a_node",
   "run_list": [
     "recipe[bootstrap_a_node::default]"
@@ -9,21 +9,21 @@
   ],
   "cookbook_locks": {
     "bootstrap_a_node": {
-      "version": "2.1.0",
-      "identifier": "fd6378ff91cd90f61abecedf913201601acd0f90",
-      "dotted_decimal_identifier": "71322540442766736.69272251087687986.1512278134672",
+      "version": "2.3.2",
+      "identifier": "e8fb5f4f898af7e62551146ba99abc4a5e8b3944",
+      "dotted_decimal_identifier": "65578581371751159.64780274808629658.207027599784260",
       "source": ".",
       "cache_key": null,
       "scm_info": {
         "scm": "git",
         "remote": "git@github.com:r-goto/bootstrap_a_node-cookbook.git",
-        "revision": "25d0f5e2365c470071cdff1acaeef61b65b561da",
+        "revision": "5a981fd0f46db35e961515048b7fdeb60cc2a7a5",
         "working_tree_clean": false,
         "published": true,
         "synchronized_remote_branches": [
           "origin/HEAD -> origin/main",
           "origin/main",
-          "origin/remove-initialccr"
+          "origin/modify-attributes-for-firstCCR-only-setting"
         ]
       },
       "source_options": {
@@ -120,7 +120,7 @@
       ]
     ],
     "dependencies": {
-      "bootstrap_a_node (2.1.0)": [
+      "bootstrap_a_node (2.3.2)": [
         [
           "slack_handler",
           ">= 0.0.0"
