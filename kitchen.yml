@@ -69,11 +69,6 @@ provisioner:
 verifier:
   name: inspec
 
-platforms:
-  - name: ubuntu-20.04
-#   - name: centos-8
-#   - name: centos-7
-
 suites:
   - name: default
     run_list:
@@ -82,6 +77,11 @@ suites:
       inspec_tests:
         - test/integration/default
     attributes:
+
+platforms:
+  - name: ubuntu-20.04
+#   - name: centos-8
+#   - name: centos-7
 
 # lifecycle:
 #   pre_converge:

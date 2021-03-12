@@ -46,6 +46,7 @@ cookbook_file "Place validator key for Org:#{node['bootstrap_a_node']['org_name'
   mode '0755'
   owner 'root'
   path "/etc/chef/#{node['bootstrap_a_node']['org_validation_key_file']}" # Watch out for the file name
+  sensitive
 end
 
 file 'Delete org validator key' do
@@ -67,20 +68,16 @@ end
 ###########
 
 ruby_block 'Run chef-client' do
-  action :nothing
+  not_if { ::File.exist?('/etc/chef/client.pem') }
   block do
-    system '/usr/bin/chef-client'
+    system '/usr/bin/chef-client --why-run'
   end
 end
 
-###########
-# Notify if `chef-client` fails to generate '/etc/chefclient.pem'.
-###########
-
-# ruby_block 'Checking if initial CCR succesfully completed...' do
-#   not_if { ::File.exist?('/etc/chef/client.pem') }
-#   notifies :run, 'ruby_block[Run chef-client]', :before
-#   block do
-#     raise 'clinet.pem not found. Perhaps the initial CCR check-in failed or client.pem vanished. Check the node status.'
-#   end
-# end
+ruby_block 'Checking if initial CCR succesfully completed...' do
+  notifies :run, 'ruby_block[Run chef-client]', :before
+  not_if { ::File.exist?('/etc/chef/client.pem') }
+  block do
+    raise "\n [WARN] No client.pem found and no trace of check-in. You might want to login the node and run chef-client manually and check its status. Possibly chef-client failed to check-in Chef Server for some reason."
+  end
+end

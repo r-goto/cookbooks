@@ -4,7 +4,7 @@
  This cookbook provides easy and simple way of registering your nodes to Chef Infra server.
 
 ##### What it does is simply. Setup Chef Infra Client onto the target nodes and which be added to specified org and policy name/group. 
-##### chef-client.service timer will be set with a specified internal. (default 5m with 3m splay)
+##### chef-client.service will be set with a specified internal. (default 10s with 0s splay) Adjust the interval in your policyfile to suit your own need. 
 
 # Usage/steps
 1. Download or git clone the cookbook.
@@ -24,16 +24,43 @@
 # Attributes		
 		
  ```		
- # Specify Chef Infra server FQDN & IP		
- default['bootstrap_a_node']['chef_server']['ipaddress'] = '198.18.246.201'		
- default['bootstrap_a_node']['chef_server']['fqdn'] = 'automate.cl'		
+###
+# Override these attributes in the Policyfile.rb accordingly.
+###
+# Specify Policy name & Policy group
+default['bootstrap_a_node']['policy_name'] = 'web-server'
+default['bootstrap_a_node']['policy_group'] = 'staging'
+# Specify chef-client attributes
+default['bootstrap_a_node']['chef_client']['version'] = '16'
+default['chef_client_updater']['post_action'] = 'kill'
+default['chef_client']['interval'] = 600
+default['chef_client']['splay'] = 120
 
-  # Specify Org name		
- default['bootstrap_a_node']['org_name'] = 'first-service'		
 
-  # Specify Policy name & Policy group		
- default['bootstrap_a_node']['policy_name'] = 'web-server'		
- default['bootstrap_a_node']['policy_group'] = 'staging'		
+## Customizations for Slack WebHook config
+## See https://api.slack.com/incoming-webhooks#customizations_for_custom_integrations
+# Add `webhook1` URL
+# default['chef_client']['handler']['slack']['webhooks']['name'].push('webhook1')
+default['chef_client']['handler']['slack']['webhooks']['webhook1']['url'] = 'https://hooks.slack.com/services/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'
+# The username of the Slack message, defaults to Slack WebHook config (i.e. nil)
+default['chef_client']['handler']['slack']['username'] = 'CCR Notifications'
+# Icon URL, defaults to Slack WebHook config (i.e. nil)
+default['chef_client']['handler']['slack']['icon_url'] = 'https://avatars1.githubusercontent.com/u/29740'
+# Emoji for the Slack call, defaults to Slack WebHook config (i.e. nil)
+default['chef_client']['handler']['slack']['icon_emoji'] = ':fork_and_knife:'
+# Only report when runs fail as opposed to every single occurrence, defaults to false
+default['chef_client']['handler']['slack']['fail_only'] = true
+# Send a message when the run starts, defaults to false
+default['chef_client']['handler']['slack']['send_start_message'] = false
+# The level of detail in the message. Valid options are 'basic', 'elapsed' and 'resources', defaults to 'basic'
+default['chef_client']['handler']['slack']['message_detail_level'] = 'elapsed'
+# The level of detail about the cookbook used in the message. Valid options are 'off' and 'all', defaults to 'off'
+default['chef_client']['handler']['slack']['cookbook_detail_level'] = 'off'
+# Send the organization from /etc/chef/client.rb, defaults to false
+default['chef_client']['handler']['slack']['send_organization'] = true
+
+# Specify node Time Zone
+default['bootstrap_a_node']['timezone'] = 'Asia/Tokyo'		
  ```
 
 # In case of failure...
