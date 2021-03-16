@@ -18,5 +18,5 @@ default['bootstrap_a_node']['policy_group'] = 'staging'
 default['bootstrap_a_node']['chef_client']['version'] = '16'
 
 # Specfy interval/splay for `chef-client` daemon
-default['chef_client']['interval'] = 600
-default['chef_client']['splay'] = 300
+default['chef_client']['interval'] = 60
+default['chef_client']['splay'] = 0
