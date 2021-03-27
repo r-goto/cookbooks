@@ -3,11 +3,11 @@
  Having issues with `knife bootstrap`? Why don't you start using [`chef-run`](https://docs.chef.io/workstation/chef_run/) to bootstrap your nodes.  		
  This cookbook provides easy and simple way of registering your nodes to Chef Infra server.
 
-##### What it does is simply. Setup Chef Infra Client onto the target nodes and which be added to specified org and policy name/group. 
-##### chef-client.service will be set with a specified internal. (default 10s with 0s splay) Adjust the interval in your policyfile to suit your own need. 
+##### What it does is simply. Setup Chef Infra Client onto the target nodes and which be added to specified org and policy name/group or environment. 
+##### chef-client.service will be set with a specified internal. (default 10s with 0s splay) Adjust the interval after bootstrap to suit your own need. 
 
 # Usage/steps
-1. Download or git clone the cookbook.
+1. Download the cookbook.
 2. Modify attributes to suit your own need of Chef Infra server and Org
 3. Run `chef-run` 		
 
@@ -17,24 +17,37 @@
 
   *Prerequisites: ssh connection to the node. Available options: `--password PASSWORD` `-identity-file PATH/TO/FILE`
 
-4. Once `chef-run` completes. The node will show up on your Chef Automate with specified policy group and your're good to go.  
+4. Once `chef-run` completes. The node will show up on your Chef Automate with specified policy group/Environment and your're good to go.  
 
-##### Lastly please remember to keep this `bootstrap_a_node` cookbook in the runlist of your Policy group as it will keep eyes on your nodes and perform any fix if unwanted changes that may make nodes unable to sync with Chef Infra server. 
+##### Remember to keep this `bootstrap_a_node` cookbook in the runlist as it will keep eyes on your nodes and perform any fix if unwanted changes that may make nodes unable to sync with Chef Infra server. 
 		
 # Attributes		
 		
  ```		
 ###
-# Override these attributes in the Policyfile.rb accordingly.
+# These attributes are to be override after bootstrap via env/policy_group accordingly.
 ###
-# Specify Policy name & Policy group
+
+# Specify Chef Server FQDN & IP
+default['bootstrap_a_node']['chef_server']['ipaddress'] = '198.18.246.201'
+default['bootstrap_a_node']['chef_server']['fqdn'] = 'automate.cl'
+
+# Specify Org name and its key file name
+default['bootstrap_a_node']['org_name'] = 'first-org'
+default['bootstrap_a_node']['org_validation_key_file'] = 'first-org-validator.pem'
+
+# Specify Policy name & Policy group OR Environment
 default['bootstrap_a_node']['policy_name'] = 'web-server'
 default['bootstrap_a_node']['policy_group'] = 'staging'
-# Specify chef-client attributes
+# default['bootstrap_a_node']['environment'] = 'staging' # If Role&Environment is in use, `run_list` needs be set with `knife node run_list add NODE_NAME RUN_LIST_ITEM (options)`
+
+# Specify chef-client version
 default['bootstrap_a_node']['chef_client']['version'] = '16'
-default['chef_client_updater']['post_action'] = 'kill'
-default['chef_client']['interval'] = 600
-default['chef_client']['splay'] = 120
+
+# Specfy interval/splay for `chef-client` daemon
+default['chef_client']['interval'] = 60
+default['chef_client']['splay'] = 0
+
 
 
 ## Customizations for Slack WebHook config

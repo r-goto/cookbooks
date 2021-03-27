@@ -14,7 +14,7 @@ chef_client_config 'client.rb' do
   log_location 'STDOUT'
   policy_name "#{node['bootstrap_a_node']['policy_name']}"
   policy_group "#{node['bootstrap_a_node']['policy_group']}"
-  additional_config "validation_key \"/etc/chef/#{node['bootstrap_a_node']['org_validation_key_file']}\"\ntrusted_certs_dir \"/etc/chef/trusted_certs\""
+  additional_config "environment \"#{node['bootstrap_a_node']['environment']}\"\nvalidation_key \"/etc/chef/#{node['bootstrap_a_node']['org_validation_key_file']}\"\ntrusted_certs_dir \"/etc/chef/trusted_certs\""
 end
 
 directory '/etc/chef/trusted_certs' do
@@ -65,6 +65,7 @@ end
 
 ###########
 # Run the initial Chef Client check-in to generate `client.pem`. If `client.pem` already exists, no CCR wil be executed.
+# `--why-run` is used as the initial CCR is just for `client.pem` generation. This way `chef-run` finishes a lot faster.
 ###########
 
 ruby_block 'Run chef-client' do

@@ -4,7 +4,7 @@
 
 # Add `webhook1` URL
 default['chef_client']['handler']['slack']['webhooks']['name'].push('webhook1')
-default['chef_client']['handler']['slack']['webhooks']['webhook1']['url'] = '[YOUR_OWN_WEBHOOK_URL]'
+default['chef_client']['handler']['slack']['webhooks']['webhook1']['url'] = ''
 default['chef_client']['handler']['slack']['enabled'] = true
 
 ## Customizations for Slack WebHook config
