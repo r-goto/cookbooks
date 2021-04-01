@@ -45,9 +45,11 @@ jobs:
         run: kitchen verify
         
       - name: Cleanup Containers and node client from Chef Server
+        env:
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         if: always()
         run: |
           kitchen destroy
           knife node list -c .chef/config.rb | grep "default-*" | xargs knife node delete -y -c .chef/config.rb || echo "node deletion failed somehow"
           knife client list -c .chef/config.rb | grep "default-*" | xargs knife client delete -y -c .chef/config.rb || echo "client delete failed somehow"
-          echo $slack_webhook_url
+          echo "Environment variably supposed to be here: $slack_webhook_url"
