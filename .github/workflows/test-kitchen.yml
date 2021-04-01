@@ -35,7 +35,7 @@ jobs:
 
       - name: Converge
         env:
-          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           kitchen destroy
           kitchen create
@@ -45,11 +45,8 @@ jobs:
         run: kitchen verify
         
       - name: Cleanup Containers and node client from Chef Server
-        env:
-          slack_webhook_url: aaaaaa
         if: always()
         run: |
           kitchen destroy
           knife node list -c .chef/config.rb | grep "default-*" | xargs knife node delete -y -c .chef/config.rb || echo "node deletion failed somehow"
           knife client list -c .chef/config.rb | grep "default-*" | xargs knife client delete -y -c .chef/config.rb || echo "client delete failed somehow"
-          echo "Environment variably supposed to be here: $slack_webhook_url"
