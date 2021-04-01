@@ -12,3 +12,4 @@ bin/*
 # files/*key
 
 policyfile.lock.json
+.chef/r-goto.pem
