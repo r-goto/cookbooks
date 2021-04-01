@@ -47,5 +47,6 @@ jobs:
       - name: Cleanup Containers and node client from Chef Server
         if: always()
         run: |
+          kitchen destroy
           knife node list -c .chef/config.rb | grep "default-*" | xargs knife node delete -y -c .chef/config.rb || echo "node deletion failed somehow"
           knife client list -c .chef/config.rb | grep "default-*" | xargs knife client delete -y -c .chef/config.rb || echo "client delete failed somehow"
