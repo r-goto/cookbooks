@@ -26,7 +26,7 @@ suites:
             slack:
               webhooks:
                 webhook1:
-                  url: 
+                  url: <%= ENV['SLACK_WEBHOOK_URL'] %>
 
 platforms:
   - name: centos-8
