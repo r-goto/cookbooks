@@ -10,3 +10,5 @@ bin/*
 
 # files/*.crt
 # files/*key
+
+policyfile.lock.json

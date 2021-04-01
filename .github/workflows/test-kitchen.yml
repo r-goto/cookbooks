@@ -1,0 +1,52 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Test Kitchen
+
+on: [ push, workflow_dispatch ]
+  
+jobs:
+  Kitchen-Test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Check if Chef installed
+        continue-on-error: true
+        id: check
+        run: sudo dpkg -l | grep chef
+        
+      - name: Install ChefWorkstation v21.2.278
+        if: steps.check.outcome == 'failure'
+        run: |
+          wget -q https://packages.chef.io/files/stable/chef-workstation/21.2.278/ubuntu/20.04/chef-workstation_21.2.278-1_amd64.deb
+          sudo dpkg -i chef-workstation_21.2.278-1_amd64.deb
+          chef -v
+  
+      - name: Install Docker
+        run: |
+          sudo apt update -y
+          sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
+          sudo apt install -y docker-compose
+          docker -v
+          sudo usermod -aG docker $USER
+          sudo chmod 666 /var/run/docker.sock
+          sudo service docker start
+          service docker status
+
+      - name: Converge
+        env:
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          kitchen destroy
+          kitchen create
+          kitchen converge
+          
+      - name: Run Test
+        run: kitchen verify
+        
+      - name: Cleanup Containers and node client from Chef Server
+        if: always()
+        run: |
+          kitchen destroy
+          knife node list -c .chef/config.rb | grep "default-*" | knife node delete -y -c .chef/config.rb || echo "node deletion failed somehow"
+          knife client list -c .chef/config.rb | grep "default-*" | knife client delete -y -c .chef/config.rb || echo "client delete failed somehow"        

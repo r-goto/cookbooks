@@ -3,12 +3,6 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://docs.chef.io/inspec/resources/
 
-describe service('chronyd') do
-  it { should be_installed }
-  it { should be_enabled }
-  it { should be_running }
-end
-
 describe bash('timedatectl status | grep Tokyo') do
   its('stdout') { should include 'Time zone: Asia/Tokyo' }
   its('stderr') { should eq '' }
