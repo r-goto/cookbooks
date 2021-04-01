@@ -71,7 +71,7 @@ end
 ruby_block 'Run chef-client' do
   not_if { ::File.exist?('/etc/chef/client.pem') }
   block do
-    system '/usr/bin/chef-client --why-run'
+    system '/opt/chef/bin/chef-client --why-run'
   end
 end
 
