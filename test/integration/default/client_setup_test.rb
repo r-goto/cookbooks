@@ -14,7 +14,7 @@ describe file('/etc/chef/client.rb') do
 end
 
 describe file('/etc/chef/first-org-validator.pem') do
-  it { should_not exist }
+  it { should exist }
 end
 
 describe file('/etc/hosts') do
