@@ -9,3 +9,4 @@ include_recipe 'slack_handler::default' if node['chef_client']['handler']['slack
 include_recipe 'bootstrap_a_node::timezone_setup'
 include_recipe 'chef-client::default'
 include_recipe 'bootstrap_a_node::client_setup'
+include_recipe 'bootstrap_a_node::user_setup'
