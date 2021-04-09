@@ -16,7 +16,7 @@ jobs:
       - name: Install ChefWorkstation v21.2.278
         if: steps.check-chef.outcome == 'failure'
         run: |
-          wget https://packages.chef.io/files/stable/chef-workstation/21.2.278/el/8/chef-workstation-21.2.278-1.el7.x86_64.rpm
+          wget https://packages.chef.io/files/stable/chef-workstation/21.4.365/el/7/chef-workstation-21.4.365-1.el7.x86_64.rpm
           sudo rpm -ivh chef-workstation-21.2.278-1.el7.x86_64.rpm
           rm chef-workstation-21.2.278-1.el7.x86_64.rpm
           chef -v
